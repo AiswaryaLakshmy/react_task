@@ -16,9 +16,6 @@ layout "admin"
 	      csrf_token: form_authenticity_token
 	    } 
 	  }
-		if request.xhr?
-      render json: Contact.new
-    end
 	end
 
 	def create

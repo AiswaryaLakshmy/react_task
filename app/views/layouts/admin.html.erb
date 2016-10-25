@@ -24,13 +24,14 @@ li a:hover {
 }
 </style>
 
-<ul>
-  <li><a class="active" href="#home">Home</a></li>
-  <li><a href="#about">About</a></li>
-  <li><a href='/contacts/new'>Contact</a></li>
-  <li><a href='/contacts'>Contact List</a></li>
-</ul>
+
 
 <body>
-    <%= yield %>
-  </body>
+  <ul>
+    <li><a class="active" href="/dashboards">Home</a></li>
+    <li><a href="/dashboards/new">About</a></li>
+    <li><a href='/contacts/new'>Contact</a></li>
+    <li><a href='/contacts'>Contact List</a></li>
+  </ul>
+  <%= yield %>
+</body>

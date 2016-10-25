@@ -6,6 +6,7 @@ var ContactList = React.createClass({
   render: function () {
     return (
       <div className="contact-list">
+        <hr />
         <ContactAll contacts={ this.state.contacts } />
       </div>
     );
