@@ -11,6 +11,7 @@ var SignUp = React.createClass({
       dataType: "json",
       success: function ( data ) {
         this.setState({ user: data });
+        window.location.reload();
       }.bind(this)
     });
   },
@@ -18,6 +19,7 @@ var SignUp = React.createClass({
   render: function () {
     return (
       <div className="user-box">
+        <h1>React rails App</h1>
         <hr />
         <h2>Sign Up</h2>
         <SignupForm form={ this.state.form } onUserSubmit={ this.handleUserSubmit } />

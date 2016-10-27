@@ -23,10 +23,10 @@ var SignupForm = React.createClass({
   render: function () {
     return (
       <form ref="form" className="user-form" action={ this.props.form.action } acceptCharset="UTF-8" method="post" onSubmit={ this.handleSubmit }>
-        <p><input type="hidden" username={ this.props.form.csrf_param } value={ this.props.form.csrf_token } /></p>
-        <p><input ref="username" username="user[username]" placeholder="Username" /></p>
-        <p><input type="password" ref="password" username="user[password]" placeholder="Password" /></p>
-        <p><input type="password" ref="confirm_password" username="user[confirm_password]" placeholder="Confirm Password" /></p>
+        <p><input type="hidden" name={ this.props.form.csrf_param } value={ this.props.form.csrf_token } /></p>
+        <p><input ref="username" name="user[username]" placeholder="Username" /></p>
+        <p><input type="password" ref="password" name="user[password]" placeholder="Password" /></p>
+        <p><input type="password" ref="confirm_password" name="user[confirm_password]" placeholder="Confirm Password" /></p>
         <p><button type="submit">Submit user</button></p>
       </form>
     )

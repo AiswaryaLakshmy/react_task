@@ -5,7 +5,6 @@ class UsersController < ApplicationController
 	def new
 		redirect_to dashboards_path and return if session[:current_user]
 		@user = {
-			user: User.new,
 			form: {
 	      action: users_path,
 	      csrf_param: request_forgery_protection_token,
@@ -26,15 +25,17 @@ class UsersController < ApplicationController
 			if @user.save
 				session[:current_user] = @user.id
       	if request.xhr?
-      		flash[:success] = 'You signed up succefully!'
-					render json: @home
+		  		flash[:success] = 'You signed up succefully!'
+					render json: Dashboard.all
 				else
-					redirect_to dashboards_path
+					redirect_to new_user_path
 				end
+				# redirect_to dashboards_path and return
     	else
       	flash[:error] = 'Form is invalid.'
       	render 'new'
     	end
+    	
     else
     	flash[:error] = 'Password and confirm password doesnt match'
     	render 'new'
@@ -42,28 +43,28 @@ class UsersController < ApplicationController
 	end
 
 	def login
+		@login = {
+			form: {
+	      action: login_path,
+	      csrf_param: request_forgery_protection_token,
+	      csrf_token: form_authenticity_token
+	  	} 
+		}
 		redirect_to dashboards_path and return if session[:current_user]
 		if request.post?
 			password = Digest::SHA1.hexdigest(user_params[:password])
 			@user = User.find_by(username: user_params[:username])
-			@login = {
-				user: User.find_by(username: user_params[:username]),
-				password: Digest::SHA1.hexdigest(user_params[:password]),
-				form: {
-		      action: dashboards_path,
-		      csrf_param: request_forgery_protection_token,
-		      csrf_token: form_authenticity_token
-	    	} 
-			}
-			if user.try(:encrypted_password) == password
+				# binding.pry
+			if @user.try(:encrypted_password) == password
 				#username and password matched
 				session[:current_user] = @user.id
-				if request.xhr?
-					render json: @dashboard
-				else
-					redirect_to users_path
-				end
-
+				# if request.xhr?
+					render json: Dashboard.all
+					flash[:success] = 'You logged in succefully!'
+				# else
+				# 	redirect_to login_path
+				# end
+				# redirect_to dashboards_path and return
 			else
 				#password is wrong
 				flash[:error] = 'Invalid username or password'
